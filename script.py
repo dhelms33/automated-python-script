@@ -1,4 +1,5 @@
 import csv
+from os import name
 
 class CSVReader:
     """Class to read CSV files."""
@@ -17,16 +18,11 @@ class Compare:
         self.data1 = data1
         self.data2 = data2
 
-    def check_fields(self):
-        """Check if the 'name', 'amount', and 'date' field values are the same in both data sets."""
-        self._check_field('name')
-        self._check_field('amount')
-        self._check_field('date of donation')
 
     def _check_field(self, field):
         """General method to check if the values of a field are the same in both data sets."""
-        values1 = {(row['name'], row['amount'], row['date of donation']) for row in self.data1}
-        values2 = {(row['name'], row['amount'], row['date of donation']) for row in self.data2}
+        values1 = {(row['Display Name'], row['gross transaction amount'],) for row in self.data1}
+        values2 = {(row['donor'], row['row checksum'],) for row in self.data2}
         
         if values1 == values2:
             print(f"The records for the field '{field}' are the same.")
@@ -35,8 +31,8 @@ class Compare:
 
 def main():
     # Initialize CSVReader objects
-    csv1 = CSVReader('path_to_classy_csv.csv')
-    csv2 = CSVReader('path_to_dynamics_csv.csv')
+    csv1 = CSVReader('PS-23-002 CSV Classy Report.csv')
+    csv2 = CSVReader('PS-23-002 CSV FE Report.csv')
     
     # Read CSV data
     data1 = csv1.read()
@@ -46,7 +42,7 @@ def main():
     comparer = Compare(data1, data2)
 
     # Check specific fields
-    comparer.check_fields()
+    comparer._check_field("Display Name")
 
 if __name__ == '__main__':
     main()
