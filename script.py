@@ -23,8 +23,8 @@ class Compare:
     def _check_field(self, field1, field2):
         """General method to check if the values of fields are the same in both data sets."""
         try:
-            values1 = {(row['Display Name'], row['gross transaction amount']) for row in self.data1}
-            values2 = {(row['donor'], row['row checksum']) for row in self.data2}
+            values1 = {(row['Display Name'], row['Gross Transaction Amount']) for row in self.data1}
+            values2 = {(row['Donor'], row['(Do Not Modify) Row Checksum']) for row in self.data2}
             
             if values1 == values2:
                 print(f"The records for the fields are the same.")
@@ -46,8 +46,7 @@ def main():
     comparer = Compare(data1, data2)
 
     # Check specific fields
-    comparer._check_field("Display Name", "gross transaction amount")
+    comparer._check_field("Display Name", "Gross Transaction Amount")
 
 if __name__ == '__main__':
     main()
-
